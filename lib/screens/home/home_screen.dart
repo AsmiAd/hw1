@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,16 +16,16 @@ class HomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Hello, George',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                        style: GoogleFonts.poppins(fontSize: 18, color: Colors.grey),
                       ),
                       Text(
                         'Welcome Back!',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

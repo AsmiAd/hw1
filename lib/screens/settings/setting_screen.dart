@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hw1/screens/login_form/login_screen.dart';
+import 'package:hw1/screens/marksheets/marksheet_screen.dart';
 import 'package:hw1/screens/product_page/product_page_screen.dart';
 import '../grid/grid_screen.dart';
 import '../registration_form/register_screen.dart';
@@ -64,6 +65,20 @@ class SettingScreen extends StatelessWidget {
               );
             },
             child: const Text("Product Page"),
+          ),
+      
+          const SizedBox(height: 10),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>  const MarksheetScreen(),
+                ),
+              );
+            },
+            child: const Text("Marksheet"),
           ),
       
           const SizedBox(height: 10),
