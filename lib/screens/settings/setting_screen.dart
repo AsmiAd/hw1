@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hw1/screens/apis/api_photo_sample_screen.dart';
+import 'package:hw1/screens/apis/api_sample_screen.dart';
 import 'package:hw1/screens/login_form/login_screen.dart';
 import 'package:hw1/screens/marksheets/marksheet_screen.dart';
 import 'package:hw1/screens/product_page/product_page_screen.dart';
@@ -82,6 +84,35 @@ class SettingScreen extends StatelessWidget {
           ),
       
           const SizedBox(height: 10),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>  const ApiSampleScreen(),
+                ),
+              );
+            },
+            child: const Text("Api 1 sample"),
+          ),
+      
+          const SizedBox(height: 10),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>  const ApiPhotoSampleScreen(),
+                ),
+              );
+            },
+            child: const Text("Api photo"),
+          ),
+      
+          const SizedBox(height: 10),
+
         ],
       ),
     );

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:hw1/widgets/common_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,12 +12,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   bool isPasswordVisible = false;
-  bool isConfirmPasswordVisible = false;
 
   final formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void login() async{
+    try {
+      CommonDialog().error(context, "You have an error");
+    } catch (e) {
+      
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Form is valid"),
-                      ));
+                      login();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Please validate your fields"),
