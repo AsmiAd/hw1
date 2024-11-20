@@ -1,6 +1,10 @@
-
 import 'package:flutter/material.dart';
-import 'package:hw1/widgets/common_dialog.dart';
+import 'package:http/http.dart' as http;
+import '../../models/login/login_response_model.dart';
+import '../../widgets/common_dialog.dart';
+import 'package:hw1/screens/main_screen.dart';
+import 'package:hw1/storage/shared_preference_storage.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,23 +14,45 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
 
   final formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void login() async{
+  void login() async {
     try {
-      CommonDialog().error(context, "You have an error");
+      CommonDialog().loading(
+        context,
+      );
+
+      var response = await http
+          .post(Uri.parse("https://api.pslinked.com/login"), body: {
+        "email": emailController.text.trim(),
+        "password": passwordController.text.trim()
+      });
+
+      var decodedJson = loginResponseModelFromJson(response.body);
+      Navigator.pop(context);
+
+      if (response.statusCode == 200) {
+        // CommonDialog().success(context, decodedJson.message.toString());
+        SharedPreferenceStorage.setToken(decodedJson.token.toString());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainScreen(),
+          ),
+        );
+      } else {
+        CommonDialog().error(context, decodedJson.message.toString());
+      }
     } catch (e) {
-      
+      debugPrint(e.toString());
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 166, 207, 244),
       ),
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-
         child: Form(
           key: formKey,
-        
           child: Column(
             children: [
-        
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
@@ -76,11 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   enabledBorder: OutlineInputBorder(),
                 ),
               ),
-        
               const SizedBox(
                 height: 20,
               ),
-        
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: passwordController,
@@ -120,11 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   enabledBorder: const OutlineInputBorder(),
                 ),
               ),
-              
               const SizedBox(
                 height: 40,
               ),
-        
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

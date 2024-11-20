@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hw1/screens/main_screen.dart';
+import 'package:hw1/screens/login_form/login_screen.dart';
+
+import 'main_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -14,12 +16,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
-        // ignore: use_build_context_synchronously
-        context, MaterialPageRoute(builder: (context) => const MainScreen()));
+          context, MaterialPageRoute(builder: (context) => const MainScreen()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     });
-    
   }
 
   @override
