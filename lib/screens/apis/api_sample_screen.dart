@@ -15,6 +15,11 @@ class _ApiSampleScreenState extends State<ApiSampleScreen> {
     super.initState();
   }
 
+  //get
+  //post
+  //delete
+  //put ra patch
+
   bool isLoading = true;
   List<PostResponseModel>? data;
 
@@ -30,8 +35,10 @@ class _ApiSampleScreenState extends State<ApiSampleScreen> {
           data = postResponseModelFromJson(response.body);
           isLoading = false;
         });
+      }else {
+        if (response.statusCode == 401) {}
       }
-    } catch (e) {
+      }catch (e) {
       debugPrint(e.toString());
     }
   }

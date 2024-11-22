@@ -6,6 +6,7 @@ import 'package:hw1/screens/marksheets/marksheet_screen.dart';
 import 'package:hw1/screens/product_page/product_page_screen.dart';
 import '../grid/grid_screen.dart';
 import '../registration_form/register_screen.dart';
+import '../state_management/state_mgmt_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -112,6 +113,20 @@ class SettingScreen extends StatelessWidget {
           ),
       
           const SizedBox(height: 10),
+
+          ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const StateMgmtScreen(),
+              ),
+            );
+          },
+          child: const Text("State Management with GetX"),
+        ),
+
+        const SizedBox(height: 10),
 
         ],
       ),

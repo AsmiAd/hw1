@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../../models/register_request_model.dart';
+import '../../models/register/register_request_model.dart';
 import 'register_success_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
