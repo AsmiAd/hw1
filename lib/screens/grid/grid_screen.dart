@@ -1,151 +1,178 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hw1/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class GridScreen extends StatelessWidget {
+import '../state_management/cart_screen.dart';
+
+class GridScreen extends StatefulWidget {
   const GridScreen({super.key});
 
   @override
+  State<GridScreen> createState() => _GridScreenState();
+}
+
+class _GridScreenState extends State<GridScreen> {
+  List<Student> students = [
+    Student(
+      name: "A",
+      image:
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      percentage: 70,
+    ),
+    Student(
+      name: "B",
+      image:
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      percentage: 80,
+    ),
+    Student(
+      name: "C",
+      image:
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      percentage: 20,
+    ),
+    Student(
+      percentage: 30,
+      name: "D",
+      image:
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    )
+  ];
+
+  List<Cat> cats = [
+    Cat("htpss:skdjnfksd", "sdkfnksjdf", color: Colors.red),
+    Cat("dfdfd", "sdkfnksjdf"),
+  ];
+  @override
   Widget build(BuildContext context) {
-
-    List<Vegetable> vegetables = [
-      Vegetable(
-        name: "Tomato",
-        color: "Red",
-        price: 15,
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",
-      ),
-      Vegetable(
-        name: "Carrot",
-        color: "Orange",
-        price: 120,
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",
-      ),
-      Vegetable(
-        name: "Spinach",
-        color: "Green",
-        price: 200,
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",
-      ),
-      Vegetable(
-        name: "Potato",
-        color: "Brown",
-        price: 80,
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",
-      ),
-      Vegetable(
-        name: "Cabbage",
-        color: "Green",
-        price: 50,
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",
-      ),
-      Vegetable(
-        name: "Cauliflower",
-        color: "Green",
-        price: 100,
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",
-      ),  
-      Vegetable(
-        name: "Ginger", 
-        color: "Brown", 
-        price: 70, 
-        image: "https://onlinetarkaripasal.com/wp-content/uploads/2021/05/Buy-Carrot-Online-in-Nepal-.jpg",),  
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Vegetables Grid"),
-      ),
-
-      body: GridView.builder(
-        padding: const EdgeInsets.all(20),
-        itemCount: vegetables.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        itemBuilder: (context, index) {
-          Vegetable vegetable = vegetables[index];
-
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Banner(
-              location: BannerLocation.topStart,
-              message: "50% OFF", 
-              color: Colors.red,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 0.2,
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  //naviagte to cart screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.add_shopping_cart_outlined),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 10,
+                  child: GetBuilder<CartController>(
+                    builder: (cart) {
+                      return Text(
+                        cart.carts.length.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                      );
+                    },
                   ),
                 ),
-
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    const SizedBox(height: 6),
-
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: CachedNetworkImageProvider(
-                        vegetable.image,
-                      ),
+              )
+            ],
+          ),
+        ],
+      ),
+      body: GridView.builder(
+          padding: const EdgeInsets.all(20),
+          itemCount: students.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: MediaQuery.of(context).size.width > 700
+                ? 4
+                : MediaQuery.of(context).size.width > 500
+                    ? 3
+                    : 2,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
+          itemBuilder: (context, index) {
+            var data = students[index];
+            return ClipRRect(
+              child: Banner(
+                location: BannerLocation.topStart,
+                message: "${index + 1} Rank",
+                color: Colors.green,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 0.2,
                     ),
-
-                    const SizedBox(height: 5),
-
-                    Text(
-                      vegetable.name,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-
-                    Text(
-                      vegetable.color,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: CachedNetworkImageProvider(data.image),
                       ),
-                    ),
-
-                    const SizedBox(height: 5),
-
-                    Text(
-                      "Price: Rs ${vegetable.price}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                      Text(
+                        data.name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+
+                      //percentage with big with fontsize color change
+                      Text(
+                        "${data.percentage}%",
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
+            );
+          }),
     );
   }
 }
 
-class Vegetable {
-  final String name;
-  final String color;
-  final double price;
+//car,bird,animal,fruits,vegetables,bike,school,stident,person,cafe,college,programmminglanguage,country
+//String, int, bool, double, var, final and const
+class Student {
   final String image;
+  final String name;
+  final double percentage;
 
-  Vegetable({
-    required this.name,
-    required this.color,
-    required this.price,
-    required this.image,
-  });
+  Student({required this.image, required this.name, required this.percentage});
+
+  // Student({required this.name, required this.percentage, required this.image});
 }
 
+class Cat {
+  //properties
+  String? image;
+  String? name;
+  Color? color;
+
+//constructor
+  Cat(this.name, this.image, {this.color});
+
+  Cat.ram(this.name, {this.image});
+
+  //
+}

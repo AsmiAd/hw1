@@ -22,9 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
       if (checkLoggedIn()) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const LoginScreen()));
+            // MaterialPageRoute(builder: (context) => const OnTapScreen()));
+
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const MainScreen()));
+            //MaterialPageRoute(builder: (context) => const CalculatorScreen()));
+
       }
     });
   }
