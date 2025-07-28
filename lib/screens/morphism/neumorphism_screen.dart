@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NeumorphismScreen extends StatelessWidget {
+  const NeumorphismScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,15 +19,15 @@ class NeumorphismScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color(0xFFE0E5EC),
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [
+            boxShadow: const [
               // Light shadow
-              const BoxShadow(
+              BoxShadow(
                 color: Colors.white,
                 offset: Offset(-10, -10),
                 blurRadius: 20,
               ),
               // Dark shadow
-              const BoxShadow(
+              BoxShadow(
                 color: Color(0xFFA3B1C6),
                 offset: Offset(10, 10),
                 blurRadius: 20,

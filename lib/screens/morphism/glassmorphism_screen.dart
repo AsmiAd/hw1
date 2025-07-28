@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class GlassmorphismScreen extends StatelessWidget {
+  const GlassmorphismScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
