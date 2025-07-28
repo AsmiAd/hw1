@@ -119,6 +119,39 @@ class MiscellaneousScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  //linear gradient button
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        debugPrint('Next button clicked');
+                      },
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        // padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color.fromARGB(255, 137, 191, 236), Color.fromARGB(255, 135, 228, 138)],
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Next',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               );
             }),
